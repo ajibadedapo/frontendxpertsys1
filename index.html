@@ -247,52 +247,20 @@
 	<!-- Necessary-JavaScript-File-For-Bootstrap -->
 	<!-- //Js files -->
 
-<script>
-	$('.submitbtn').on('click', function () {
-		var query = $('.query').val();
-		$.ajax({
-			type: 'GET',
-			url: 'http://18.223.243.108:8112/api/checks/request/'+query,
-			dataType: 'json',
-			success: function(data) {
-				var $tr =$('<tr>').addClass('header');
-				$.each(data.headers, function(i,header){
-					$tr.append($('<th>').append($('a').addClass('sort').attr('href','#').append($('span').text(header))));
-				});
-				$tr.appendTo('table.data');
-				$.each(data.rows,function(i,row){
-					$('<tr>').attr('id',i).
-					append($('<td>').text(row.categoryName)).
-					append($('<td>').text(row.checkstobemade)).
-					append($('<td>').text(row.possibleFaults)).
-					append($('<td>').text(row.spareParts))
-							.appendTo('table.data');
-				});
-				$('.clickme').click();
-				console.log(data);
-			// 	localStorage.setItem('byinput', JSON.stringify(data));
-			// 	window.location.href = '/searchresult.html'; //relative to domain
-			}
-		});
-	})
-</script>
 
 
-	<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary clickme center-block">Click Me</button></div>
 
-
-	<!-- line modal -->
-	<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<button class="btn btn-primary btn-lg clickme"  title="Share this content" data-toggle="modal" data-target="#myModal">
+		<i class="fa fa-share-alt"></i> Share
+	</button>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h3 class="modal-title" style="visibility: hidden"  id="lineModalLabel">My Modal</h3>
+					<h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i> Share</h4>
 				</div>
 				<div class="modal-body">
-
-					<!-- content goes here -->
-					<div class="row col-md-10 col-md-offset-2 custyle">
 						<table class="table table-striped custab">
 							<thead>
 							<tr>
@@ -312,27 +280,14 @@
 							</tr>
 
 						</table>
-					</div>
-					<script>
-
-					</script>
 				</div>
 				<div class="modal-footer">
-					<div class="btn-group btn-group-justified" role="group" aria-label="group button">
-						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
-						</div>
-						<div class="btn-group btn-delete hidden" role="group">
-							<button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal"  role="button">Delete</button>
-						</div>
-						<div class="btn-group" role="group">
-							<button type="button" id="saveImage" class="btn btn-default btn-hover-green" data-action="save" role="button">Save</button>
-						</div>
-					</div>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 <style>
 	.center {
@@ -359,6 +314,36 @@
 		border-right: 0;
 	}
 </style>
+
+	<script>
+		$('.submitbtn').on('click', function () {
+			var query = $('.query').val();
+			$.ajax({
+				type: 'GET',
+				url: 'http://18.223.243.108:8112/api/checks/request/'+query,
+				dataType: 'json',
+				success: function(data) {
+					var $tr =$('<tr>').addClass('header');
+					$.each(data.headers, function(i,header){
+						$tr.append($('<th>').append($('a').addClass('sort').attr('href','#').append($('span').text(header))));
+					});
+					$tr.appendTo('table.data');
+					$.each(data.rows,function(i,row){
+						$('<tr>').attr('id',i).
+						append($('<td>').text(row.categoryName)).
+						append($('<td>').text(row.checkstobemade)).
+						append($('<td>').text(row.possibleFaults)).
+						append($('<td>').text(row.spareParts))
+								.appendTo('table.data');
+					});
+					$('.clickme').click();
+					console.log(data);
+					// 	localStorage.setItem('byinput', JSON.stringify(data));
+					// 	window.location.href = '/searchresult.html'; //relative to domain
+				}
+			});
+		})
+	</script>
 </body>
 
 </html>
