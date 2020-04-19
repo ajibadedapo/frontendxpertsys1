@@ -11,9 +11,8 @@
 	<!--// Meta tag Keywords -->
 
 	<!-- Custom-Files -->
-	<script src="js/jquery-2.2.3.min.js"></script>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/smoothbox.css" type='text/css' media="all" />
 	<!-- gallery light box -->
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	<!-- Style-CSS -->
@@ -181,12 +180,8 @@
 
 	<!-- Js files -->
 	<!-- JavaScript -->
-<!--
 	<script src="js/jquery-2.2.3.min.js"></script>
--->
-<!--
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
--->
 
 	<!-- Default-JavaScript-File -->
 
@@ -248,35 +243,26 @@
 	<!--  necessary snippets for few javascript files -->
 	<script src="js/snacks.js"></script>
 
-<!--
 	<script src="js/bootstrap.js"></script>
--->
 	<!-- Necessary-JavaScript-File-For-Bootstrap -->
 	<!-- //Js files -->
 
-
-
-
-	<button class="btn btn-primary btn-lg clickme" style="visibility: hidden" title="Share this content" data-toggle="modal" data-target="#myModal">
-		<i class="fa fa-share-alt"></i> Share
-	</button>
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i> Share</h4>
-				</div>
-				<div class="modal-body" id='showData'>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
+<script>
+	$('.submitbtn').on('click', function () {
+		var query = $('.query').val();
+		$.ajax({
+			type: 'GET',
+			url: 'http://18.223.243.108:8112/api/checks/request/'+query,
+			dataType: 'json',
+			success: function(data) {
+				var data = data[0];
+				console.log(data);
+				localStorage.setItem('byinput', JSON.stringify(data));
+				window.location.href = '/searchresult.html'; //relative to domain
+			}
+		});
+	})
+</script>
 
 <style>
 	.center {
@@ -303,66 +289,6 @@
 		border-right: 0;
 	}
 </style>
-
-	<script>
-		$('.submitbtn').on('click', function () {
-			var query = $('.query').val();
-			$.ajax({
-				type: 'GET',
-				url: 'http://18.223.243.108:8112/api/checks/request/'+query,
-				dataType: 'json',
-				success: function(data) {
-					var data = data[0];
-					delete data['id'];delete data.caseID;delete data.categoryID;delete data.caseName;delete data.categoryName;
-					var col = [];
-					for (var i = 0; i < data.length; i++) {
-						delete data['id'];
-						for (var key in data[i]) {
-							if (col.indexOf(key) === -1) {
-								col.push(key);
-							}
-						}
-					}
-
-					// Create a table.
-					var table = document.createElement("table");
-
-					// Create table header row using the extracted headers above.
-					var tr = table.insertRow(-1);                   // table row.
-
-					for (var i = 0; i < col.length; i++) {
-						var th = document.createElement("th");      // table header.
-						th.innerHTML = col[i];
-						tr.appendChild(th);
-					}
-
-					// add json data to the table as rows.
-					for (var i = 0; i < data.length; i++) {
-
-						tr = table.insertRow(-1);
-
-						for (var j = 0; j < col.length; j++) {
-							var tabCell = tr.insertCell(-1);
-							tabCell.innerHTML = data[i][col[j]];
-						}
-					}
-
-					// Now, add the newly created table with json data, to a container.
-					var divShowData = document.getElementById('showData');
-					divShowData.innerHTML = "";
-					divShowData.appendChild(table);
-
-
-
-
-				//$('.clickme').click();
-					console.log((data));
-					 	localStorage.setItem('byinput', JSON.stringify(data));
-					window.location.href = '/searchresult.html'; //relative to domain
-				}
-			});
-		})
-	</script>
 </body>
 
 </html>
