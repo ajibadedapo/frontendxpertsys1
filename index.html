@@ -153,9 +153,9 @@
 							<p class="movetxt text-white mb-4">Find Delivery Outlet near you</p>
 -->
 							<div class="search-agile">
-								<form action="#" method="post">
-									<input type="search" name="search" placeholder="Input here..." required="">
-									<input type="submit" value="Search">
+								<form  method="post" onsubmit="event.preventDefault(); ">
+									<input type="search" class="query" name="search" placeholder="Input here..." required="">
+									<input type="submit" class="submitbtn" value="Search">
 									<div class="clearfix"> </div>
 								</form>
 							</div>
@@ -163,27 +163,7 @@
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="slider-info bg2">
-					<div class="w3l-overlay">
-						<div class="banner-text text-center container">
-							<h3 class="text-white mb-md-4 mb-3">Enter the Condition of
-								<span>Car</span>
-							</h3>
-<!--
-							<p class="movetxt text-white mb-4">Find Delivery Outlet near you</p>
--->
-							<div class="search-agile">
-								<form action="#" method="post">
-									<input type="search" name="search" placeholder="Search here..." required="">
-									<input type="submit" value="Search">
-									<div class="clearfix"> </div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
+
 		</ul>
 	</div>
 	<!-- //banner -->
@@ -255,6 +235,21 @@
 	<!-- Necessary-JavaScript-File-For-Bootstrap -->
 	<!-- //Js files -->
 
+<script>
+	$('.submitbtn').on('click', function () {
+		var query = $('.query').val();
+		$.ajax({
+			type: 'GET',
+			url: 'http://18.223.243.108:8112/api/checks/request/'+query,
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				localStorage.setItem('byinput', JSON.stringify(data));
+				window.location.href = '/searchresult.html'; //relative to domain
+			}
+		});
+	})
+</script>
 </body>
 
 </html>
