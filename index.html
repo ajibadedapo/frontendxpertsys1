@@ -169,6 +169,12 @@
 			url: 'http://18.223.243.108:8112/api/checks/request/'+query,
 			dataType: 'json',
 			success: function(data) {
+				if (Object.keys(data).length == 0)
+				{
+					alert('No Record Found');
+					return null;
+				}
+
 				var data = data[0];
 				console.log(data);
 				localStorage.setItem('byinput', JSON.stringify(data));
