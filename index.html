@@ -26,7 +26,17 @@
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=latin-ext"
 	    rel="stylesheet">
 	<!-- //Web-Fonts -->
+	<script>
+		if (window.location.protocol == "https:") {
+			console.log("You are  connected with a secure connection.");
+			console.log("Reloading the page to a nonSecure Connection...");
+			window.location = document.URL.replace("https://", "http://");
+		}
 
+		if (window.location.protocol == "http:") {
+			console.log("You are connected with a non secure connection.")
+		}
+	</script>
 </head>
 
 <body>
@@ -250,6 +260,7 @@
 		});
 	})
 </script>
+
 </body>
 
 </html>
