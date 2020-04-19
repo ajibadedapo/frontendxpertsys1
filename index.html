@@ -11,8 +11,9 @@
 	<!--// Meta tag Keywords -->
 
 	<!-- Custom-Files -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/smoothbox.css" type='text/css' media="all" />
+	<script src="js/jquery-2.2.3.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<!-- gallery light box -->
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	<!-- Style-CSS -->
@@ -180,8 +181,12 @@
 
 	<!-- Js files -->
 	<!-- JavaScript -->
+<!--
 	<script src="js/jquery-2.2.3.min.js"></script>
+-->
+<!--
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+-->
 
 	<!-- Default-JavaScript-File -->
 
@@ -243,14 +248,16 @@
 	<!--  necessary snippets for few javascript files -->
 	<script src="js/snacks.js"></script>
 
+<!--
 	<script src="js/bootstrap.js"></script>
+-->
 	<!-- Necessary-JavaScript-File-For-Bootstrap -->
 	<!-- //Js files -->
 
 
 
 
-	<button class="btn btn-primary btn-lg clickme"  title="Share this content" data-toggle="modal" data-target="#myModal">
+	<button class="btn btn-primary btn-lg clickme" style="visibility: hidden" title="Share this content" data-toggle="modal" data-target="#myModal">
 		<i class="fa fa-share-alt"></i> Share
 	</button>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
