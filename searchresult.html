@@ -13,20 +13,7 @@
 	<link rel="stylesheet" href="css/searchresult.css">
 </head>
 <body>
-<script>
-/*
-// /!*
-// 	var $table = $('#table');
-// *!/
-*/
-	var mydata = localStorage.getItem("byinput");
-	console.log(mydata);
-	$(function () {
-		$('#table').bootstrapTable({
-			data: mydata
-		});
-	});
-</script>
+
 
 <!------ Include the above in your HEAD tag ---------->
 <div class="container-fluid">
@@ -69,5 +56,19 @@
 		</table>
 	</div>
 </div>
+<script>
+	/*
+    // /!*
+    // 	var $table = $('#table');
+    // *!/
+    */
+	var mydata = localStorage.getItem("byinput");
+	console.log(mydata);
+	$(function () {
+		$('#table').bootstrapTable({
+			data: mydata
+		});
+	});
+</script>
 </body>
 </html>
