@@ -7,7 +7,6 @@
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
-	<meta name="keywords" content="Snacks Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 	<!--// Meta tag Keywords -->
 
 	<!-- Custom-Files -->
@@ -19,9 +18,7 @@
 	<link rel="stylesheet" href="css/fontawesome-all.css">
 	<!-- Font-Awesome-Icons-CSS -->
 	<!-- //Custom-Files -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 	<!-- Web-Fonts -->
 	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext"
 	    rel="stylesheet">
@@ -73,7 +70,6 @@
 			</div>
 		</nav>
 	</header>
-	<!-- login -->
 
 	<!-- //header -->
 
@@ -108,8 +104,14 @@
 
 	<!-- Js files -->
 	<!-- JavaScript -->
+<!--
 	<script src="js/jquery-2.2.3.min.js"></script>
+-->
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 
 	<!-- Default-JavaScript-File -->
 
@@ -138,22 +140,6 @@
 	<!-- //banner slider -->
 
 	<!-- password-script -->
-	<script>
-		window.onload = function () {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
-
-		function validatePassword() {
-			var pass2 = document.getElementById("password2").value;
-			var pass1 = document.getElementById("password1").value;
-			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-			else
-				document.getElementById("password2").setCustomValidity('');
-			//empty string means no validation error
-		}
-	</script>
 	<!-- //password-script -->
 
 	<!-- gallery light box -->
@@ -173,40 +159,7 @@
 
 	<script src="js/bootstrap.js"></script>
 	<!-- Necessary-JavaScript-File-For-Bootstrap -->
-	<!-- //Js files -->
-	<button class="btn btn-primary btn-lg clickme"  title="Share this content" data-toggle="modal" data-target="#myModal">
-		<i class="fa fa-share-alt"></i> Share
-	</button>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-alt"></i> Share</h4>
-				</div>
-				<div class="modal-body">
-					<table class="table table-striped" id="table">
-						<thead>
-						<tr>
-							<th data-field="checkstobemade">Checks to be made</th>
-							<th data-field="possibleFaults">Possible Faults</th>
-							<th data-field="spareParts">Spare parts</th>
-							<th class="text-center">Action</th>
-						</tr>
-						</thead>
-
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div
 <script>
 	$('.submitbtn').on('click', function () {
 		var query = $('.query').val();
@@ -220,44 +173,70 @@
 				localStorage.setItem('byinput', JSON.stringify(data));
 				var $table = $('#table');
 
-				var mydata = data;
-				console.log(JSON.parse(mydata));
+				//var mydata = data;
+				//console.log(JSON.parse(mydata));
 				$(function () {
 					$('#table').bootstrapTable({
-						data: JSON.parse(mydata)
+						data: data
 					});
 				});
 				$('.clickme').click();
 				//window.location.href = '/searchresult.html'; //relative to domain
 			}
 		});
-	})
+	});
+	window.operateEvents = {
+		'click .view': function (e, value, row, index) {
+			//alert('You click like action, row: ' + JSON.stringify(row.id))
+			$.ajax({
+				type: 'GET',
+				url: 'http://18.223.243.108:8112/api/checks/'+JSON.stringify(row.id),
+				dataType: 'json',
+				success: function(data) {
+					localStorage.setItem('byid', JSON.stringify(data));
+					//$('.clickme').click();
+					window.location.href = '/seemore.html'; //relative to domain
+				}
+			});
+		},
+	};
+
 </script>
 
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped" id="table">
+						<thead>
+						<tr>
+							<th data-field="checkstobemade">Checks to be made</th>
+							<th data-field="possibleFaults">Possible Faults</th>
+							<th data-field="spareParts">Spare parts</th>
+							<th data-field="id" data-formatter="<a  class='view' > <i class='fa fa-eye'></i>View</a>" data-events="operateEvents">Detail</th>
+
+						</tr>
+						</thead>
+
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-primary btn-lg clickme" style="visibility: hidden"  title="Share this content" data-toggle="modal" data-target="#myModal">
+		<i class="fa fa-share-alt"></i> Share
+	</button>
 <style>
-	.center {
-		margin-top:50px;
-	}
-
-	.modal-header {
-		padding-bottom: 5px;
-	}
-
-	.modal-footer {
-		padding: 0;
-	}
-
-	.modal-footer .btn-group button {
-		height:40px;
-		border-top-left-radius : 0;
-		border-top-right-radius : 0;
-		border: none;
-		border-right: 1px solid #ddd;
-	}
-
-	.modal-footer .btn-group:last-child > button {
-		border-right: 0;
-	}
+	.modal-dialog {
+		max-width: 80vw !important;
+	}‚
 </style>
 </body>
 

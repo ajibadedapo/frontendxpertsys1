@@ -3,10 +3,14 @@
 
 <head>
 	<title>CAR DIAGNOSIS EXPERT SYSTEM</title>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 	<link rel="stylesheet" href="css/seemore.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+
 </head>
 <body>
 <!------ Include the above in your HEAD tag ---------->
@@ -21,13 +25,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">CAR DIAGNOSIS EXPERT SYSTEM</a>
+				<a class="navbar-brand" href="/">CAR DIAGNOSIS EXPERT SYSTEM</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbar-collapse-4">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Home</a></li>
+					<li><a href="/">Home</a></li>
 
 				</ul>
 			</div><!-- /.navbar-collapse -->
@@ -39,57 +43,26 @@
 	<div class="row">
 
 		<section class="content">
-			<h1>Dignosis Result Detail</h1>
+			<h1>Diagnosis Result Detail</h1>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
 
 						<div class="table-container">
-							<table class="table table-filter">
-								<tbody>
-								<tr data-status="pagado">
-
-									<td>
-										<a href="javascript:;" class="star">
-											<i class="glyphicon glyphicon-star"></i>
-										</a>
-									</td>
-									<td>
-										<div class="media">
-											<div class="media-body">
-												<span class="media-meta pull-right">Febrero 13, 2016</span>
-												<h4 class="title">
-													Lorem Impsum
-													<span class="pull-right pagado">(Pagado)</span>
-												</h4>
-												<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-											</div>
-										</div>
-									</td>
+							<table class="table table-striped" id="table">
+								<thead>
+								<tr>
+									<th data-field="possibleFaults">Checks to be made</th>
+									<th data-field="checkstobemade">Possible Faults</th>
+									<th data-field="spareParts">Spare parts</th>
 								</tr>
-								<tr data-status="pendiente">
-
-									<td>
-										<a href="javascript:;" class="star">
-											<i class="glyphicon glyphicon-star"></i>
-										</a>
-									</td>
-									<td>
-										<div class="media">
-											
-											<div class="media-body">
-												<span class="media-meta pull-right">Febrero 13, 2016</span>
-												<h4 class="title">
-													Lorem Impsum
-													<span class="pull-right pendiente">(Pendiente)</span>
-												</h4>
-												<p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-											</div>
-										</div>
-									</td>
+								</thead>
+								<tr>
+									<td id="checks"></td>
+									<td id="faults"></td>
+									<td id="parts"></td>
 								</tr>
-							
-								</tbody>
+
 							</table>
 						</div>
 					</div>
@@ -102,5 +75,20 @@
 
 	</div>
 </div>
+<script>
+
+
+	var $table = $('#table');
+	var mydata = localStorage.getItem("byid");
+	var thedata = JSON.parse(mydata);
+	$('#faults').text(thedata.possibleFaults);
+	$('#checks').text(thedata.checkstobemade);
+	$('#parts').text(thedata.spareParts);
+	$(function () {
+		$('#table').bootstrapTable({
+			data: thedata
+		});
+	});
+</script>
 </body>
 </html>
