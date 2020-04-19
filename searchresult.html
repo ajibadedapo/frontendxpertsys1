@@ -60,7 +60,7 @@
 	var $table = $('#table');
 
 	var mydata = localStorage.getItem("byinput");
-	console.log(mydata);
+	console.log(JSON.parse(mydata));
 	$(function () {
 		$('#table').bootstrapTable({
 			data: JSON.parse(mydata)
