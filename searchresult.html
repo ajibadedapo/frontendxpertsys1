@@ -3,19 +3,31 @@
 
 <head>
 	<title>CAR DIAGNOSIS EXPERT SYSTEM</title>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<link rel="stylesheet" href="css/searchresult.css">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>>
+	<link rel="stylesheet" href="css/searchresult.css">
+	<link rel="stylesheet" href="css/searchresult.css">
 </head>
 <body>
 <script>
-	var $table = $('#table');
+/*
+// /!*
+// 	var $table = $('#table');
+// *!/
+*/
 	var mydata = localStorage.getItem("byinput");
+	console.log(mydata);
+	$(function () {
+		$('#table').bootstrapTable({
+			data: mydata
+		});
+	});
 </script>
+
 <!------ Include the above in your HEAD tag ---------->
 <div class="container-fluid">
 	<nav class="navbar navbar-inverse">
@@ -43,17 +55,25 @@
 </div>
 <br/><br/><br/><br/>
 <div class="container">
-	<div class="row col-md-10 col-md-offset-2 custyle">
+	<div class="row col-md-6 col-md-offset-2 custyle">
 		<table class="table table-striped custab">
 			<thead>
 			<tr>
-				<th data-field="checkstobemade">Title</th>
-				<th data-field="possibleFaults">Possible Fault</th>
-				<th data-field="spareParts">Spare Parts</th>
+<!--
+				<th>Title</th>
+-->
+				<th>Diagnosis</th>
 				<th class="text-center">Action</th>
 			</tr>
 			</thead>
-
+			<tr>
+<!--
+				<td>News</td>
+-->
+				<td>Take your vehicle to a shop and explain to the mechanic exactly what you learned here. Take this report with you:
+				</td>
+				<td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Read more</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Back</a></td>
+			</tr>
 
 		</table>
 	</div>
